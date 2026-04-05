@@ -1,7 +1,0 @@
-HijriDate	KEYWORD1
-update	KEYWORD2
-hDay	KEYWORD2
-hMonth	KEYWORD2
-hYear	KEYWORD2
-getMonthName	KEYWORD2
-getFullDate	KEYWORD2
