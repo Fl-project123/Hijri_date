@@ -52,13 +52,13 @@ void loop() {
 }
 ```
 ### API Reference
--void setLanguage(uint8_t lang) : Sets the global language output. Use LANG_EN for English or LANG_ID for Indonesian.
--void update(int d, int m, int y, int k = 0) : Processes the conversion. k is the optional manual day offset (e.g., -1, 0, 1).
--int hDay() : Returns the Hijri day (1-30).
--int hMonth() : Returns the Hijri month (1-12).
--int hYear() : Returns the Hijri year.
--String getMonthName() : Returns the string name of the current Hijri month based on the selected language.
--String getFullDate() : Returns the complete formatted date string (e.g., "24 Muharram 1448 H").
+- void setLanguage(uint8_t lang) : Sets the global language output. Use LANG_EN for English or LANG_ID for Indonesian.
+- void update(int d, int m, int y, int k = 0) : Processes the conversion. k is the optional manual day offset (e.g., -1, 0, 1).
+- int hDay() : Returns the Hijri day (1-30).
+- int hMonth() : Returns the Hijri month (1-12).
+- int hYear() : Returns the Hijri year.
+- String getMonthName() : Returns the string name of the current Hijri month based on the selected language.
+- String getFullDate() : Returns the complete formatted date string (e.g., "24 Muharram 1448 H").
 
 ### License
 This project is licensed under the MIT License.
