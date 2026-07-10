@@ -1,16 +1,33 @@
 #include "Hijri_date.h"
 
+// Array nama bulan versi Inggris (Internasional)
 const char* Hijri_date::_monthNamesEnglish[] = {
   "", "Muharram", "Safar", "Rabi' al-Awwal", "Rabi' al-Thani", 
   "Jumada al-Ula", "Jumada al-Akhira", "Rajab", "Sha'ban", 
   "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"
 };
 
-// Konstruktor disesuaikan dengan nama class baru
+// Array nama bulan versi Indonesia (Lokal)
+const char* Hijri_date::_monthNamesIndonesia[] = {
+  "", "Muharram", "Safar", "Rabiul Awwal", "Rabiul Akhir", 
+  "Jumadil Ula", "Jumadil Akhir", "Rajab", "Sya'ban", 
+  "Ramadhan", "Syawal", "Dzulqa'dah", "Dzulhijjah"
+};
+
+// Konstruktor: Set default nilai awal dan bahasa ke Inggris
 Hijri_date::Hijri_date() {
   _hd = 1;
   _hm = 1;
   _hy = 1;
+  _currentLang = LANG_EN; // Default internasional
+}
+
+void Hijri_date::setLanguage(uint8_t lang) {
+  if (lang == LANG_ID) {
+    _currentLang = LANG_ID;
+  } else {
+    _currentLang = LANG_EN;
+  }
 }
 
 void Hijri_date::update(int d, int m, int y, int k) {
@@ -41,13 +58,19 @@ int Hijri_date::hMonth() { return _hm; }
 int Hijri_date::hYear()  { return _hy; }
 
 String Hijri_date::getMonthName() {
-  if (_hm >= 1 && _hm <= 12) return String(_monthNamesEnglish[_hm]);
-  return "Unknown";
+  if (_hm < 1 || _hm > 12) return "Unknown";
+  
+  // Percabangan otomatis berdasarkan status bahasa saat ini
+  if (_currentLang == LANG_ID) {
+    return String(_monthNamesIndonesia[_hm]);
+  } else {
+    return String(_monthNamesEnglish[_hm]);
+  }
 }
 
 String Hijri_date::getFullDate() {
   String result;
-  result.reserve(30); 
+  result.reserve(30); // Optimasi alokasi RAM babi mikro 8-bit
   result += String(_hd);
   result += " ";
   result += getMonthName();
