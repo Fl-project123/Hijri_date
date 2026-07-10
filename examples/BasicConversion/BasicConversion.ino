@@ -1,16 +1,25 @@
 #include <Hijri_date.h>
 
-HijriDate hd;
+Hijri_date hd;
 
 void setup() {
   Serial.begin(115200);
+  while(!Serial); 
   
-  // Update: Tanggal 20, Bulan 3, Tahun 2026, Koreksi 0
-  hd.update(20, 3, 2026, 0); 
+  Serial.println("--- Karya Fa'al - Hijri_date ---");
 
-  Serial.println("Karya Fa'al - Hijri_date Library");
-  Serial.print("Hasil Konversi: ");
-  Serial.println(hd.getFullDate());
+  // Input tanggal Masehi yang sama: 9 Juli 2026
+  
+  // 1. Uji Coba Versi Default (Bahasa Inggris)
+  hd.update(9, 7, 2026, 0); 
+  Serial.print("Default (EN) : ");
+  Serial.println(hd.getFullDate()); // Output: 24 Muharram 1448 H
+
+  // 2. Uji Coba Ubah Bahasa ke Indonesia
+  hd.setLanguage(LANG_ID);
+  hd.update(9, 7, 2026, 0); 
+  Serial.print("Ubah ke (ID) : ");
+  Serial.println(hd.getFullDate()); // Output: 24 Muharram 1448 H (Menggunakan ejaan lokal jika berbeda)
 }
 
 void loop() {}
