@@ -1,16 +1,21 @@
 #include "Hijri_date.h"
 
-// Definisi nama bulan dalam Bahasa Inggris untuk standar internasional
-const char* HijriDate::_monthNamesEnglish[] = {
+const char* Hijri_date::_monthNamesEnglish[] = {
   "", "Muharram", "Safar", "Rabi' al-Awwal", "Rabi' al-Thani", 
   "Jumada al-Ula", "Jumada al-Akhira", "Rajab", "Sha'ban", 
   "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"
 };
 
-HijriDate::HijriDate() {}
+// Konstruktor disesuaikan dengan nama class baru
+Hijri_date::Hijri_date() {
+  _hd = 1;
+  _hm = 1;
+  _hy = 1;
+}
 
-void HijriDate::update(int d, int m, int y, int k) {
-  // Gunakan suffix L (Long) agar tidak terjadi error perhitungan pada Arduino 8-bit (Uno/Nano)
+void Hijri_date::update(int d, int m, int y, int k) {
+  if (m < 1 || m > 12 || d < 1 || d > 31) return;
+
   long jdn = (long)((1461L * (y + 4800L + (m - 14) / 12)) / 4) +
              (long)((367L * (m - 2 - 12 * ((m - 14) / 12))) / 12) -
              (long)((3 * ((y + 4900L + (m - 14) / 12) / 100)) / 4) +
@@ -31,15 +36,23 @@ void HijriDate::update(int d, int m, int y, int k) {
   _hy = (int)(30 * n + j - 30);
 }
 
-int HijriDate::hDay()   { return _hd; }
-int HijriDate::hMonth() { return _hm; }
-int HijriDate::hYear()  { return _hy; }
+int Hijri_date::hDay()   { return _hd; }
+int Hijri_date::hMonth() { return _hm; }
+int Hijri_date::hYear()  { return _hy; }
 
-String HijriDate::getMonthName() {
+String Hijri_date::getMonthName() {
   if (_hm >= 1 && _hm <= 12) return String(_monthNamesEnglish[_hm]);
   return "Unknown";
 }
 
-String HijriDate::getFullDate() {
-  return String(_hd) + " " + getMonthName() + " " + String(_hy) + " H";
+String Hijri_date::getFullDate() {
+  String result;
+  result.reserve(30); 
+  result += String(_hd);
+  result += " ";
+  result += getMonthName();
+  result += " ";
+  result += String(_hy);
+  result += " H";
+  return result;
 }
