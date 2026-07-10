@@ -3,9 +3,10 @@
 
 #include "Arduino.h"
 
-class HijriDate {
+// Nama Class disamakan persis dengan nama library
+class Hijri_date {
   public:
-    HijriDate();
+    Hijri_date();
     // d = day, m = month, y = year, k = correction/offset
     void update(int d, int m, int y, int k = 0);
     
@@ -17,7 +18,6 @@ class HijriDate {
 
   private:
     int _hd, _hm, _hy;
-    // Kita deklarasikan saja variabelnya di sini tanpa isinya
     static const char* _monthNamesEnglish[]; 
 };
 
